@@ -1,0 +1,56 @@
+# AttenA+WAM: RoboTwin 2.0 fine-tuning configuration (action head only).
+# Mirrors third_party/FastWAM/configs/task/robotwin_finetune_action_head.yaml
+# with AttenA+ velocity attention enabled.
+#
+# Usage (from third_party/FastWAM/):
+#   bash scripts/train_zero2.sh task=robotwin_finetune_action_head
+
+# @package _global_
+
+defaults:
+  - override /data: robotwin
+  - override /model: fastwam
+  - _self_
+
+task_name: robotwin_finetune_action_head_only
+
+# Fine-tuning strategy: freeze vision encoders and pre-trained WAM backbone,
+# only train the action head. This is the protocol used in the AttenA+WAM
+# experiments (Appendix E.2): ~1 epoch on RoboTwin, ~4 days on 2× H800 GPUs.
+finetune:
+  freeze_strategy: "action_head_only"
+  freeze_video_expert: true
+  freeze_action_backbone: true
+
+# Training configuration
+learning_rate: 5.0e-6
+batch_size: 8
+gradient_accumulation_steps: 2
+num_epochs: 2
+save_every: 1000
+eval_every: 200
+log_every: 10
+
+# Pre-trained FastWAM checkpoint (required for fine-tuning)
+resume: "./checkpoints/fastwam_release/robotwin_uncond_3cam_384.pt"
+
+# AttenA+ velocity-weighted action loss
+model:
+  loss:
+    use_weighted_action_loss: true
+    action_loss_weight_strategy: "inverse_squared"  # paper default (Appendix C)
+    action_loss_clip_max_weight: 2.0                # paper: clip_max ∈ {2.0, 5.0}
+    action_loss_alpha: 5.0                          # paper value for exp_decay (Eq. 12)
+    action_loss_use_l1: true
+    action_loss_normalize_weights: true
+
+# Output directory
+output_dir: ./runs/finetune/robotwin_action_head/${now:%Y-%m-%d}_${now:%H-%M-%S}
+
+# Wandb logging
+wandb:
+  enabled: true
+  project: fastwam-finetune
+  name: robotwin_attena_finetune_action_head
+  group: attena_finetune
+  mode: online

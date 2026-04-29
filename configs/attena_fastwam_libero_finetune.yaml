@@ -1,0 +1,56 @@
+# AttenA+WAM: LIBERO fine-tuning configuration (action head only).
+# Mirrors third_party/FastWAM/configs/task/libero_finetune_action_head.yaml
+# with AttenA+ velocity attention enabled.
+#
+# Usage (from third_party/FastWAM/):
+#   bash scripts/train_zero2.sh task=libero_finetune_action_head
+
+# @package _global_
+
+defaults:
+  - override /data: libero_2cam
+  - override /model: fastwam
+  - _self_
+
+task_name: libero_finetune_action_head_only
+
+# Fine-tuning strategy: freeze vision encoders and pre-trained WAM backbone,
+# only train the action head.
+finetune:
+  freeze_strategy: "action_head_only"
+  freeze_video_expert: true
+  freeze_action_backbone: true
+
+# Training configuration
+learning_rate: 1.0e-5
+batch_size: 30
+gradient_accumulation_steps: 1
+num_epochs: 3
+save_every: 500
+eval_every: 250
+log_every: 10
+
+# Pre-trained FastWAM checkpoint (required for fine-tuning)
+resume: "./checkpoints/fastwam_release/libero_uncond_2cam224.pt"
+
+# AttenA+ velocity-weighted action loss
+model:
+  loss:
+    use_weighted_action_loss: true
+    action_loss_weight_strategy: "inverse_squared"  # paper default (Appendix C)
+    action_loss_clip_max_weight: 2.0                # paper: clip_max ∈ {2.0, 5.0}
+    action_loss_alpha: 5.0                          # paper value for exp_decay (Eq. 12)
+    action_loss_use_l1: true
+    action_loss_normalize_weights: true
+
+# Output directory
+output_dir: ./runs/finetune/libero_action_head/${now:%Y-%m-%d}_${now:%H-%M-%S}
+
+# Wandb logging
+wandb:
+  enabled: true
+  workspace: pengdaojie-the-hong-kong-university-of-science-and-techn
+  project: fastwam-finetune
+  name: libero_attena_finetune_action_head
+  group: attena_finetune
+  mode: online

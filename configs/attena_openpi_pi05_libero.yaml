@@ -1,0 +1,37 @@
+# AttenA+ configuration for OpenPI π₀.₅ training on LIBERO.
+# Corresponds to the "attena_pi05_libero" entry in config.py.
+# Pass to scripts/train.py: python scripts/train.py attena_pi05_libero --exp-name <name>
+
+# --- Model: π₀.₅ ---
+model:
+  pi05: true
+  action_horizon: 10
+  discrete_state_input: false
+
+  # AttenA+ velocity attention
+  use_velocity_attention: true
+  velocity_weight_strategy: "inverse_squared"  # paper default (Appendix C)
+  velocity_clip_max_weight: 2.0
+  velocity_epsilon: 1.0e-3
+  velocity_alpha: 5.0                   # paper value for exp_decay
+  velocity_normalize_weights: true
+  velocity_joint_dims: 6                # first 6 dims = joint velocities (dim 7 = gripper)
+
+# --- Data ---
+# repo_id: physical-intelligence/libero
+# extra_delta_transform: false
+
+# --- Training ---
+batch_size: 256
+num_train_steps: 30000
+ema_decay: 0.999
+
+# --- LR Schedule ---
+lr_schedule:
+  warmup_steps: 10000
+  peak_lr: 5.0e-5
+  decay_steps: 1000000
+  decay_lr: 5.0e-5
+
+# --- Checkpoint ---
+# weight_loader: gs://openpi-assets/checkpoints/pi05_base/params

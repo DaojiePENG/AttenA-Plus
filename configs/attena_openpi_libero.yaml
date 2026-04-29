@@ -1,0 +1,21 @@
+# AttenA+ configuration for OpenPI π₀ training on LIBERO.
+# Pass to scripts/train.py: python scripts/train.py pi0_libero --overrides ...
+
+# --- Model: π₀ ---
+model:
+  pi05: false
+  action_horizon: 50
+
+  # AttenA+ velocity attention
+  use_velocity_attention: true
+  velocity_weight_strategy: "inverse_squared"  # paper default (Appendix C)
+  velocity_clip_max_weight: 2.0
+  velocity_epsilon: 1.0e-3
+  velocity_alpha: 5.0                          # paper value for exp_decay
+  velocity_normalize_weights: true
+  velocity_joint_dims: 6                       # first 6 dims = joint velocities (dim 7 = gripper)
+
+# --- Base Training ---
+# batch_size: 32
+# num_train_steps: 30000
+# learning_rate: 1.0e-4

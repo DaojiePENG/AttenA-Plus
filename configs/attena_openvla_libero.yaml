@@ -1,0 +1,29 @@
+# AttenA+ configuration for OpenVLA-OFT fine-tuning on LIBERO.
+# Pass these flags to vla-scripts/finetune.py via torchrun or directly.
+
+# --- AttenA+ Core ---
+use_weighted_l1_loss: true
+weight_strategy: "inverse_squared"  # paper default (Appendix C)
+clip_max_weight: 2.0                # paper uses 2.0 and 5.0
+epsilon: 1.0e-3
+alpha: 5.0                          # paper value for exp_decay
+normalize_weights: false
+
+# --- Base Training ---
+vla_path: "openvla/openvla-7b"
+dataset_name: "libero_spatial_no_noops"
+batch_size: 16
+grad_accumulation_steps: 1
+learning_rate: 5.0e-4
+num_steps: 30000
+save_steps: 5000
+
+# --- LoRA ---
+use_lora: true
+lora_rank: 32
+lora_dropout: 0.0
+
+# --- Action Head ---
+use_l1_regression: true
+action_dim: 7
+action_chunk_size: 8

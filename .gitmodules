@@ -1,0 +1,12 @@
+[submodule "third_party/openvla-oft"]
+	path = third_party/openvla-oft
+	url = https://github.com/DaojiePENG/openvla-oft.git
+	branch = attena+oft
+[submodule "third_party/FastWAM"]
+	path = third_party/FastWAM
+	url = https://github.com/DaojiePENG/FastWAM.git
+	branch = attena+wam
+[submodule "third_party/openpi"]
+	path = third_party/openpi
+	url = https://github.com/DaojiePENG/openpi.git
+	branch = attena+pi

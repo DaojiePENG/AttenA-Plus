@@ -111,7 +111,7 @@ $$w_t = f(v_t), \quad w_t \in [1/c_{\max},\ c_{\max}]$$
 
 ```bash
 git clone --recurse-submodules https://github.com/DaojiePENG/AttenA-Plus.git
-cd AttenA+
+cd AttenA-Plus
 ```
 
 If you already cloned without `--recurse-submodules`:
@@ -184,7 +184,28 @@ loss = attena.weighted_loss(
 
 ---
 
-## Integration Guides
+## Pretrained Models
+
+All released checkpoints are hosted on Hugging Face.
+
+### AttenA+OFT — LIBERO (OpenVLA-OFT based)
+
+| Task Suite | Model |
+|---|---|
+| LIBERO-Spatial | [attena-oft-7b-finetuned-libero-spatial](https://huggingface.co/DaojiePENG/attena-oft-7b-finetuned-libero-spatial) |
+| LIBERO-Object | [attena-oft-7b-finetuned-libero-object](https://huggingface.co/DaojiePENG/attena-oft-7b-finetuned-libero-object) |
+| LIBERO-Goal | [attena-oft-7b-finetuned-libero-goal](https://huggingface.co/DaojiePENG/attena-oft-7b-finetuned-libero-goal) |
+| LIBERO-Long (10) | [attena-oft-7b-finetuned-libero-10](https://huggingface.co/DaojiePENG/attena-oft-7b-finetuned-libero-10) |
+
+### AttenA+WAM — RoboTwin 2.0 (FastWAM based)
+
+| Benchmark | Model |
+|---|---|
+| RoboTwin 2.0 (all 50 tasks) | [attena-wam-finetuned-head-robotwin2-all](https://huggingface.co/DaojiePENG/attena-wam-finetuned-head-robotwin2-all) |
+
+---
+
+
 
 - [AttenA+OFT — OpenVLA-OFT](docs/openvla_integration.md)
 - [AttenA+WAM — FastWAM](docs/fastwam_integration.md)
@@ -195,7 +216,7 @@ loss = attena.weighted_loss(
 ## Repository Structure
 
 ```
-AttenA+/
+AttenA-Plus/
 ├── attena/                         # Core AttenA+ implementation
 │   ├── __init__.py
 │   └── velocity_attention.py       # VelocityAttention class

@@ -17,6 +17,25 @@ No model architecture changes are required.
 
 ---
 
+## Pretrained Checkpoints
+
+All four LIBERO task-suite models are available on Hugging Face:
+
+| Task Suite | Model |
+|---|---|
+| LIBERO-Spatial | [attena-oft-7b-finetuned-libero-spatial](https://huggingface.co/DaojiePENG/attena-oft-7b-finetuned-libero-spatial) |
+| LIBERO-Object | [attena-oft-7b-finetuned-libero-object](https://huggingface.co/DaojiePENG/attena-oft-7b-finetuned-libero-object) |
+| LIBERO-Goal | [attena-oft-7b-finetuned-libero-goal](https://huggingface.co/DaojiePENG/attena-oft-7b-finetuned-libero-goal) |
+| LIBERO-Long | [attena-oft-7b-finetuned-libero-10](https://huggingface.co/DaojiePENG/attena-oft-7b-finetuned-libero-10) |
+
+Download example:
+```bash
+huggingface-cli download DaojiePENG/attena-oft-7b-finetuned-libero-spatial \
+  --local-dir ./checkpoints/attena_oft_libero_spatial
+```
+
+---
+
 ## Setup
 
 ```bash

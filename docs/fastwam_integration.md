@@ -16,6 +16,22 @@ configs/task/                       ← AttenA+ parameters in YAML
 
 ---
 
+## Pretrained Checkpoint
+
+The AttenA+WAM checkpoint fine-tuned on all 50 RoboTwin 2.0 tasks is available on Hugging Face:
+
+| Benchmark | Model |
+|---|---|
+| RoboTwin 2.0 (all 50 tasks) | [attena-wam-finetuned-head-robotwin2-all](https://huggingface.co/DaojiePENG/attena-wam-finetuned-head-robotwin2-all) |
+
+Download example:
+```bash
+huggingface-cli download DaojiePENG/attena-wam-finetuned-head-robotwin2-all \
+  --local-dir ./checkpoints/attena_wam_robotwin2
+```
+
+---
+
 ## Setup
 
 ```bash

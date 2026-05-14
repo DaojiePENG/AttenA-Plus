@@ -1,17 +1,20 @@
-# AttenA+: Velocity Field Action Attention for Enhancing Action-Centric Robotic Foundation Models
+# AttenA+: Rectifying Action Inequality in Robotic Foundation Models
 
 <div align="center">
 
 <!-- Paper badges — replace placeholders once published -->
 [![Paper](https://img.shields.io/badge/Paper-NeurIPS%202026-blue)](https://arxiv.org)
-[![arXiv](https://img.shields.io/badge/arXiv-XXXX.XXXXX-b31b1b)](https://arxiv.org)
-[![License](https://img.shields.io/badge/License-Apache%202.0-green)](LICENSE)
+<!-- [![arXiv](https://img.shields.io/badge/arXiv-F75A5A?logo=arxiv&labelColor=555555)](https://arxiv.org/abs/2605.13548) -->
+[![arXiv](https://img.shields.io/badge/arXiv-2605.13548-b31b1b)](https://arxiv.org/abs/2605.13548)
+[![License](https://img.shields.io/badge/License-Apache%202026-green)](LICENSE)
 
 </div>
 
 ---
 
 ## Overview
+
+![overview](assets/overview.png)
 
 **AttenA+** is a paradigm-agnostic, plug-in training framework that enhances action-centric robotic foundation models by prioritizing **slow, precision-demanding action steps** during training.
 
@@ -20,6 +23,7 @@ Existing frameworks treat all action timesteps equally during training, ignoring
 > _Slow movements → critical, precision-demanding steps (grasping, precise placement)_
 > _Fast movements → transitional, error-tolerant steps (repositioning, coarse approach)_
 
+![pipeline](assets/pipeline.png)
 AttenA+ constructs a **velocity field** over the action sequence and assigns higher learning weights to low-velocity timesteps. This single modification can be seamlessly plugged into both discriminative (VLA) and generative (flow-matching, WAM) models **without any architectural changes**.
 
 ```
@@ -52,7 +56,7 @@ Results compared with state-of-the-art methods. SR (%): average success rate acr
 | UniVLA | 96.5 | 96.8 | 95.6 | 92.0 | 95.23 | 4.78 |
 | VLA-ADP | 99.0 | 98.2 | 96.8 | 91.2 | 96.3 | 3.7 |
 | **AttenA+OFT (Ours)** | **99.0** | **100.0** | **98.8** | **96.6** | **98.6** | **1.4** |
-| **AttenA+π₀ (Ours)** | **98.1** | **99.4** | **96.9** | **86.7** | **95.28** | **4.72** |
+| **AttenA+$\pi_{0.5}$ (Ours)** | **99.2** | **99.6** | **98.8** | **94.2** | **97.95** | **2.05** |
 
 AttenA+OFT improves over OpenVLA-OFT by **+1.5% SR** and reduces error rate by **-1.5% ER**, with the largest gains on long-horizon tasks (+2.1%).
 
@@ -65,9 +69,9 @@ AttenA+OFT improves over OpenVLA-OFT by **+1.5% SR** and reduces error rate by *
 | Motus | ✓ | 88.66 | 87.02 | 87.8 | 12.2 |
 | LingBot-VA | ✓ | 92.90 | 91.50 | 92.2 | 7.8 |
 | Fast-WAM | ✗ | 91.88 | 91.78 | 91.8 | 8.2 |
-| **AttenA+WAM (Ours)** | **✗** | **93.3** | **92.9** | **93.1** | **6.9** |
+| **AttenA+WAM (Ours)** | **✗** | **93.06** | **91.86** | **92.46** | **7.54** |
 
-AttenA+WAM achieves SOTA without embodied pre-training, outperforming LingBot-VA by +0.9%.
+AttenA+WAM achieves SOTA without embodied pre-training, outperforming LingBot-VA by +0.6%.
 
 ### Real-World Franka Robot Experiments
 
